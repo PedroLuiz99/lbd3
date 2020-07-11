@@ -6,8 +6,6 @@ _ENV_FILE = os.path.join(Path(__file__).parent.parent.parent, '.env')
 
 if os.path.isfile(_ENV_FILE):
     load_dotenv(dotenv_path=_ENV_FILE)
-else:
-    raise Exception("ERROR: env file not found")
 
 
 class Config:
