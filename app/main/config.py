@@ -10,8 +10,8 @@ if os.path.isfile(_ENV_FILE):
 
 class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'my_super_secret_key')
-    APP_IP = os.getenv('APP_IP', 5000)
-    APP_PORT = os.getenv('APP_PORT', '127.0.0.1')
+    APP_IP = os.getenv('APP_IP',  '127.0.0.1')
+    APP_PORT = os.getenv('APP_PORT', 5000)
 
 
 class DevelopmentConfig(Config):
