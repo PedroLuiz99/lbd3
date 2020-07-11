@@ -19,6 +19,7 @@ Mako==1.0.7
 MarkupSafe==1.0
 psycopg2-binary==2.8.5
 pycparser==2.18
+python-dotenv==0.14.0
 PyJWT==1.5.3
 python-dateutil==2.6.1
 pytz==2017.3

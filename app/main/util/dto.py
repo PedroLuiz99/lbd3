@@ -16,7 +16,7 @@ class EventDto:
     api = Namespace('event', description='event related operations')
     event = api.model('event', {
         'event_id': fields.Integer(description='event identifier'),
-        'user_id': fields.Integer(required=True, description='user identifier'),
+        'user_id': fields.Integer(description='user identifier'),
         'event_name': fields.String(required=True, description='event name'),
         'event_description': fields.String(required=True, description='event description'),
         'date_start': fields.String(required=True, description='event start date'),

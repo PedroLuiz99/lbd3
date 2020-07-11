@@ -24,8 +24,10 @@ manager.add_command('db', MigrateCommand)
 @manager.command
 def run():
     app.run(
-        host='0.0.0.0',
-        debug=True
+        host=app.config['APP_IP'],
+        port=app.config['APP_PORT'],
+        debug=app.config['DEBUG'],
+        use_reloader=app.config['DEBUG']
     )
 
 

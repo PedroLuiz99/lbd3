@@ -1,13 +1,14 @@
-import uuid
-import datetime
-
 from app.main import db
+from flask import request
 from app.main.model.event import Event
+from app.main.service.auth_helper import Auth
 
 
 def save_new_event(data):
+    user, _ = Auth.get_logged_in_user(request)
+
     new_event = Event(
-        user_id=data['user_id'],
+        user_id=user['data']['user_id'],
         event_name=data['event_name'],
         event_description=data['event_description'],
         date_start=data['date_start'],
@@ -47,12 +48,13 @@ def put_event(event_id, data):
 
 
 def get_all_events():
-    # TODO: FILTRAR POR USUARIO
-    return Event.query.all()
+    user, _ = Auth.get_logged_in_user(request)
+    return Event.query.filter_by(user_id=user['data']['user_id']).all()
 
 
 def get_a_event(event_id):
-    return Event.query.filter_by(event_id=event_id).first()
+    user, _ = Auth.get_logged_in_user(request)
+    return Event.query.filter_by(event_id=event_id, user_id=user['data']['user_id']).first()
 
 
 def delete_event(event_id):
@@ -60,22 +62,8 @@ def delete_event(event_id):
     try:
         if event:
             db.session.delete(event)
-            return None, 204
-    except Exception as e:
-        return {"message": "Error deleting the event"}, 409
-
-
-def patch_event(event_id, data):
-    event = get_a_event(event_id)
-    try:
-        if event:
-            for field in data:
-                setattr(event, field, data[field])
-
-            c_event = event.check_conflicting_event()
-            if c_event:
-                return {"message": "Event date conflicts with event {}".format(c_event.event_name)}, 409
-
+            db.session.commit()
+            return {}, 204
     except Exception as e:
         return {"message": "Error deleting the event"}, 409
 

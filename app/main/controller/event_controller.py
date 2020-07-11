@@ -3,7 +3,7 @@ from flask_restx import Resource
 
 from app.main.util.decorator import token_required
 from ..util.dto import EventDto
-from ..service.event_service import save_new_event, get_all_events, get_a_event
+from ..service.event_service import save_new_event, get_all_events, get_a_event, put_event, delete_event
 
 api = EventDto.api
 _event = EventDto.event
@@ -43,3 +43,19 @@ class Event(Resource):
             api.abort(404)
         else:
             return event
+
+    @api.expect(_event, validate=True)
+    @api.response(201, 'Event successfully changed.')
+    @api.doc('create a new event')
+    @api.doc(security="Login_Token")
+    def put(self, event_id):
+        """Edit a Event """
+        data = request.json
+        return put_event(event_id, data)
+
+    @api.doc('delete a event')
+    @api.doc(security="Login_Token")
+    def delete(self, event_id):
+        """Edit a Event """
+        data = request.json
+        return delete_event(event_id)

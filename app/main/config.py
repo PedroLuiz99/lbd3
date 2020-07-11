@@ -1,32 +1,38 @@
 import os
+from pathlib import Path
+from dotenv import load_dotenv
 
-# uncomment the line below for postgres database url from environment variable
-# postgres_local_base = os.environ['DATABASE_URL']
+_ENV_FILE = os.path.join(Path(__file__).parent.parent.parent, '.env')
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+if os.path.isfile(_ENV_FILE):
+    load_dotenv(dotenv_path=_ENV_FILE)
+else:
+    raise Exception("ERROR: env file not found")
 
 
 class Config:
-    SECRET_KEY = os.getenv('SECRET_KEY', 'QD4sDauHn9vhCfThuM8zm8NF')
+    SECRET_KEY = os.getenv('SECRET_KEY', 'my_super_secret_key')
+    APP_IP = os.getenv('APP_IP', 5000)
+    APP_PORT = os.getenv('APP_PORT', '127.0.0.1')
 
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = "mysql://lbd3:123qweXX@127.0.0.1:3306/lbd3_dev"
+    SQLALCHEMY_DATABASE_URI = os.getenv('DEV_DB_URI', os.getenv('DB_URI'))
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = "mysql://lbd3:123qweXX@localhost:3306/lbd3_test"
+    SQLALCHEMY_DATABASE_URI = os.getenv('TEST_DB_URI', os.getenv('DB_URI'))
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class ProductionConfig(Config):
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = "mysql://ldbd3:123qweXX@localhost:3306/lbd3"
+    SQLALCHEMY_DATABASE_URI = os.getenv('TEST_DB_URI')
 
 
 config_by_name = dict(
