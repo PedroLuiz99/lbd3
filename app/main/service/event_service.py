@@ -39,7 +39,7 @@ def put_event(event_id, data):
             return {"message": "Event date conflicts with event {}".format(c_event.event_name)}, 409
 
         db.session.commit()
-        return event
+        return {"message": "success"}, 200
     else:
         response_object = {
             'message': 'Event not found',
