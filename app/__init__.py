@@ -9,7 +9,7 @@ blueprint = Blueprint('api', __name__)
 
 api = Api(blueprint,
           title='LBD3',
-          version='1.1.0',
+          version='1.1.1',
           doc='/doc',
           description='API para o Projeto de Laboratório de Banco de Dados 3 - Calendário estudantil',
           authorizations={
