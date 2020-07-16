@@ -14,8 +14,12 @@ def save_new_user(data):
             password=data['password'],
             registered_on=datetime.datetime.utcnow()
         )
-        save_changes(new_user)
-        return generate_token(new_user)
+        try:
+            save_changes(new_user)
+            return generate_token(new_user)
+        except:
+            db.session.roolback()
+            return {}, 500
     else:
         response_object = {
             'message': 'User already exists. Please Log in.',

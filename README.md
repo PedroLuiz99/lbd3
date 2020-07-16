@@ -1,14 +1,14 @@
-# Projetão gostoso de LDB III
+# Projeto de LBD III
 
-Quando eu estiver com saco preencho aqui
+API para o projeto de Laboratório de Banco de Dados
 
 # Rodar com o docker
 
 ```bash
-    docker-compose up -d
+docker-compose up -d
 
-    docker exec -it lbd3_app_1 bash
+docker exec -it lbd3_app_1 bash
 
-    python manage.py db migrate -m "Uma mensagem legal aqui"
-    python manage.py db upgrade
+python manage.py db migrate -m "Banco de dados final"
+python manage.py db upgrade
 ```
