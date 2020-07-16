@@ -30,7 +30,7 @@ class TestingConfig(Config):
 
 class ProductionConfig(Config):
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = os.getenv('TEST_DB_URI')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DB_URI')
 
 
 config_by_name = dict(
