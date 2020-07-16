@@ -11,8 +11,6 @@ services:
       MYSQL_ROOT_PASSWORD: "123qweXX"
     volumes:
       - ./db:/docker-entrypoint-initdb.d/:ro
-    networks:
-      - my_net
 
   app:
     depends_on:
@@ -22,8 +20,6 @@ services:
       - "5000:5000"
     volumes:
       - ./:/app
-    networks:
-      - my_net
     environment:
       SECRET_KEY: ${SECRET_KEY}
       DB_URI: ${DB_URI}
@@ -31,7 +27,3 @@ services:
       TEST_DB_URI: ${TEST_DB_URI}
       APP_IP: ${APP_IP}
       APP_PORT: ${APP_PORT}
-
-networks:
-  my_net:
-    driver: bridge
